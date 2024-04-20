@@ -1,0 +1,7 @@
+pandas==2.2.1
+python_dateutil==2.8.2
+streamlit==1.30.0
+yfinance==0.2.36
+gspread
+pandas
+streamlit_extras
