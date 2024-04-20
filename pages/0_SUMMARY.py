@@ -134,7 +134,7 @@ while True:
             up_df['CMP'] = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2) if stock != "M&MFIN" else round(get_cmp_price("M&MFIN"),2)
             up_df['Gain%'] = round((((up_df['Qty.'] * up_df['CMP']) - (up_df['Price'] * up_df['Qty.'])) / (up_df['Price'] * up_df['Qty.'])) * 100,2)
             up_df['Amount'] = (up_df['Qty.'] * up_df['CMP']) - (up_df['Price'] * up_df['Qty.'])
-            filtered_rows = up_df[up_df['Gain%'] >= 8]
+            filtered_rows = up_df[up_df['Gain%'] >= 30]
             for Stock_name in filtered_rows['Stock'].unique():
                 Stock_rows = filtered_rows[filtered_rows['Stock'] == Stock_name]
                 Stock_rows.iloc[1:, 3] = ''  # Set Stock name to empty string for all rows except the first
