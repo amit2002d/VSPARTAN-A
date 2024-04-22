@@ -131,7 +131,7 @@ while True:
             up_df['Price'] = up_df['Price'].str.replace(',', '').astype(float) if up_df['Price'].dtype == 'object' else up_df['Price']
             up_df['Qty.'] = up_df['Qty.'].str.replace(',', '').astype(float) if up_df['Qty.'].dtype == 'object' else up_df['Qty.']
             up_df['Age'] = (datetime.datetime.now() - pd.to_datetime(up_df['Date'])).dt.days
-            up_df['CMP'] = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2) if stock != "M&MFIN" else round(get_cmp_price("M&MFIN"),2)
+            up_df['CMP'] = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2)
             up_df['Gain%'] = round((((up_df['Qty.'] * up_df['CMP']) - (up_df['Price'] * up_df['Qty.'])) / (up_df['Price'] * up_df['Qty.'])) * 100,2)
             up_df['Amount'] = (up_df['Qty.'] * up_df['CMP']) - (up_df['Price'] * up_df['Qty.'])
             filtered_rows = up_df[up_df['Gain%'] >= 30]
@@ -140,7 +140,7 @@ while True:
                 Stock_rows.iloc[1:, 3] = ''  # Set Stock name to empty string for all rows except the first
                 sell = pd.concat([sell, Stock_rows], ignore_index=True)
             st.session_state.all_data[stock]['Qty.'] = st.session_state.all_data[stock]['Qty.'].str.replace(',', '').astype(float) if st.session_state.all_data[stock]['Qty.'].dtype == 'object' else st.session_state.all_data[stock]['Qty.']
-            cmp = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2) if stock != "M&MFIN" else round(get_cmp_price("M&MFIN"),2)
+            cmp = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2)
             total_value =  ((st.session_state.all_data[stock]['Qty.']) * (st.session_state.all_data[stock]['Price']).astype(float)).sum() if not st.session_state.all_data[stock].empty else 0
             total_invested += total_value
             current_value =  ((st.session_state.all_data[stock]['Qty.']) * cmp).sum() if not st.session_state.all_data[stock].empty else 0
@@ -154,7 +154,7 @@ while True:
             amount = 10000
             qty = math.ceil(amount / cmp)
             down_lb = round((cmp - last_buy)/last_buy * 100,2) if last_buy != 0 else 0
-            lth = lifetime_high(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]) if stock != "M&MFIN" else lifetime_high("M&MFIN")
+            lth = lifetime_high(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock])
             if last_buy == 0:
                 if round((cmp-lth)/lth * 100,2) <= -15:
                     new_res = pd.DataFrame({'Stock': [stock], 'Down%':[round(pnl*100,2)], "Down_LTH%": [round((cmp - lth)/lth * 100,2)], "LTH": [lth], 'Down_LB%':[down_lb],'CMP':[cmp], 'Amount': [amount], 'Qty': [qty], 'LB': [last_buy]})
