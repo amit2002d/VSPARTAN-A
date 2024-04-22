@@ -131,7 +131,7 @@ while True:
             up_df['Price'] = up_df['Price'].str.replace(',', '').astype(float) if up_df['Price'].dtype == 'object' else up_df['Price']
             up_df['Qty.'] = up_df['Qty.'].str.replace(',', '').astype(float) if up_df['Qty.'].dtype == 'object' else up_df['Qty.']
             up_df['Age'] = (datetime.datetime.now() - pd.to_datetime(up_df['Date'])).dt.days
-            up_df['CMP'] = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2)
+            up_df['CMP'] = round(get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]),2) if get_cmp_price(st.session_state.secrets["connections"]["gsheets"]["worksheets"][stock]) is not None else 1
             up_df['Gain%'] = round((((up_df['Qty.'] * up_df['CMP']) - (up_df['Price'] * up_df['Qty.'])) / (up_df['Price'] * up_df['Qty.'])) * 100,2)
             up_df['Amount'] = (up_df['Qty.'] * up_df['CMP']) - (up_df['Price'] * up_df['Qty.'])
             filtered_rows = up_df[up_df['Gain%'] >= 30]
