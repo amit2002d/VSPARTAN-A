@@ -174,7 +174,7 @@ class ETFDashboard:
         down_lb = round((processed_data['cmp'] - processed_data['last_buy_price']) /
                         processed_data['last_buy_price'] * 100, 2) if processed_data['last_buy_price'] != 0 else 0
         down_lth = round((lth - processed_data['cmp']) / lth * 100, 2)
-        amount = 35000 if st.session_state.user in ('Amit', 'Deepti') else 2500
+        amount = 5000 if st.session_state.user in ('Amit', 'Deepti') else 2500
         qty = math.ceil(
             amount / processed_data['cmp']) if processed_data['cmp'] != 0 else 0
         
