@@ -150,6 +150,7 @@ class ETFDashboard:
         })
 
         return {
+            'age': processed_data['Age'],
             'processed_data': processed_data,
             'sell_candidates': sell_candidates,
             'total_value': total_value,
@@ -181,7 +182,7 @@ class ETFDashboard:
         
         print(stock, processed_data, down_lb, down_lth)
 
-        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0) or (
+        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0  and processed_data['Age'] > DURATION) or (
                 processed_data['last_buy_price'] == 0 and down_lth >= LTH_DOWNSIDE_THRESHOLD):
             new_entry = pd.DataFrame({
                 'ETF': [stock],
