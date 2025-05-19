@@ -16,6 +16,7 @@ REFRESH_INTERVAL = 5  # seconds
 GAIN_THRESHOLD = 5  # percentage for sell condition
 DOWNSIDE_THRESHOLD = -5  # percentage for buy condition
 LTH_DOWNSIDE_THRESHOLD = -90  # percentage from lifetime high for buy condition
+DURATION = 30 # last buy se > 30 days
 
 
 class ETFDashboard:
@@ -180,7 +181,7 @@ class ETFDashboard:
         
         print(stock, processed_data['last_buy_price'], down_lb, down_lth)
 
-        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0) or (
+        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0 and processed_data["Age"] > DURATION) or (
                 processed_data['last_buy_price'] == 0 and down_lth >= LTH_DOWNSIDE_THRESHOLD):
             new_entry = pd.DataFrame({
                 'ETF': [stock],
