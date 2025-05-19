@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 REFRESH_INTERVAL = 5  # seconds
 GAIN_THRESHOLD = 5  # percentage for sell condition
 DOWNSIDE_THRESHOLD = -50  # percentage for buy condition
-LTH_DOWNSIDE_THRESHOLD = 5  # percentage from lifetime high for buy condition
+LTH_DOWNSIDE_THRESHOLD = -5  # percentage from lifetime high for buy condition
 
 
 class ETFDashboard:
