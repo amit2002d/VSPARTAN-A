@@ -181,10 +181,7 @@ class ETFDashboard:
         
         print(stock, processed_data['last_buy_price'], down_lb, down_lth)
 
-        processed_data['Age'] = (
-            datetime.now() - pd.to_datetime(processed_data['Date'])).dt.days
-
-        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0 and processed_data["Age"] > DURATION) or (
+        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0 and processed_data['processed_data']["Age"] > DURATION) or (
                 processed_data['last_buy_price'] == 0 and down_lth >= LTH_DOWNSIDE_THRESHOLD):
             new_entry = pd.DataFrame({
                 'ETF': [stock],
