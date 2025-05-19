@@ -179,9 +179,9 @@ class ETFDashboard:
         qty = math.ceil(
             amount / processed_data['cmp']) if processed_data['cmp'] != 0 else 0
         
-        print(stock, processed_data['last_buy_price'], down_lb, down_lth)
+        print(stock, processed_data, down_lb, down_lth)
 
-        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0 and processed_data['processed_data']["Age"] > DURATION) or (
+        if (down_lb <= DOWNSIDE_THRESHOLD and processed_data['pnl'] < 0) or (
                 processed_data['last_buy_price'] == 0 and down_lth >= LTH_DOWNSIDE_THRESHOLD):
             new_entry = pd.DataFrame({
                 'ETF': [stock],
