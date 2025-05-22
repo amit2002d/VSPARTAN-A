@@ -14,7 +14,7 @@ warnings.filterwarnings("ignore")
 # Constants
 REFRESH_INTERVAL = 5  # seconds
 GAIN_THRESHOLD = 5  # percentage for sell condition
-DOWNSIDE_THRESHOLD = -5  # percentage for buy condition
+DOWNSIDE_THRESHOLD = -10  # percentage for buy condition
 LTH_DOWNSIDE_THRESHOLD = -90  # percentage from lifetime high for buy condition
 DURATION = 30 # last buy se > 30 days
 
